@@ -7,24 +7,6 @@ use Closure;
 trait Str
 {
     /**
-     * Escapes a string
-     *
-     * @return Closure
-     */
-    public function escape()
-    {
-        return function (&$field) {
-            $field = str_replace(
-                ['\'', '"', '>', '<', '`', '\\'],
-                ['&#039;', '&#34;', '&#62;', '&#60;', '&#96;', '&#92;'],
-                $field
-            );
-
-            return true;
-        };
-    }
-
-    /**
      * Checked value is the E-Mail address
      *
      * @return Closure
