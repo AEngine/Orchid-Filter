@@ -5,7 +5,7 @@ namespace AEngine\Orchid\Filter;
 use Closure;
 use RuntimeException;
 
-abstract class AbstractValidator
+abstract class AbstractFilter
 {
     protected $data  = [];
     protected $field = null;
