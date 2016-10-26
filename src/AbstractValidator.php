@@ -1,11 +1,11 @@
 <?php
 
-namespace AEngine\Filter;
+namespace AEngine\Orchid\Filter;
 
 use Closure;
 use RuntimeException;
 
-abstract class Validator
+abstract class AbstractValidator
 {
     protected $data  = [];
     protected $field = null;

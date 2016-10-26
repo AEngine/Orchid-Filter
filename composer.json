@@ -25,7 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "AEngine\\Filter\\": "src/"
+      "AEngine\\Orchid\\Filter\\": "src/"
     }
   }
 }
