@@ -24,6 +24,7 @@ use AEngine\Orchid\Filter\Rule\Sanitize\Escape;
 use AEngine\Orchid\Filter\Rule\Sanitize\Integer;
 use AEngine\Orchid\Filter\Rule\Sanitize\Lowercase;
 use AEngine\Orchid\Filter\Rule\Sanitize\Now;
+use AEngine\Orchid\Filter\Rule\Sanitize\Remove;
 use AEngine\Orchid\Filter\Rule\Sanitize\Trim;
 use AEngine\Orchid\Filter\Rule\Validate\Boolean as isBoolean;
 use AEngine\Orchid\Filter\Rule\Validate\CreditCard;
@@ -80,8 +81,7 @@ class Filter extends AbstractFilter
              ->attr('date')
                 ->addRule((new DateTime)())
              ->attr('now')
-                ->addRule((new Now)())
-                ->addRule((new DateTime)(DateTime::TIME_12))
+                ->addRule((new Remove)())
              ->attr('email')
                  ->addRule((new Trim)())
                  ->addRule((new Email)());
