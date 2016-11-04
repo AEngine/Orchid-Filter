@@ -3,7 +3,6 @@
 declare(strict_types = 1);
 const ROOT = __DIR__ . '/../src/';
 
-header('Content-Type: text/plain');
 spl_autoload_register(function ($class) {
     $class_path = ROOT . str_replace(['\\', '_'], '/', $class) . '.php';
     $class_path = str_replace('AEngine/Orchid/Filter/', '', $class_path);
@@ -34,6 +33,7 @@ use AEngine\Orchid\Filter\Rule\Validate\Integer as isInteger;
 use AEngine\Orchid\Filter\Rule\Validate\Ip;
 use AEngine\Orchid\Filter\Rule\Validate\StrlenMax;
 use AEngine\Orchid\Filter\Rule\Validate\StrlenMin;
+use AEngine\Orchid\Filter\Rule\Validate\Upload;
 use AEngine\Orchid\Filter\Rule\Validate\Url;
 
 class Filter extends AbstractFilter
@@ -81,6 +81,8 @@ class Filter extends AbstractFilter
                 ->addRule((new DateTime)())
              ->attr('now')
                 ->addRule((new Remove)())
+             ->attr('upload')
+                ->addRule((new Upload)())
              ->attr('email')
                  ->addRule((new Trim)())
                  ->addRule((new Email)());
@@ -101,9 +103,18 @@ $data = [
     'site'           => 'http://example.com',
     'date'           => time(),
     'now'            => '',
+    'upload'         => '',
     'email'          => 'alex@example.com',
 ];
+$data = array_merge($data, $_FILES);
 $result = Filter::test($data);
 
-var_dump($data);
-var_dump($result);
+?>
+<pre><?
+    var_dump($data);
+    var_dump($result);
+?></pre>
+<form enctype="multipart/form-data" method="post">
+    <input name="upload" type="file"/>
+    <input type="submit">
+</form>
