@@ -10,7 +10,7 @@ class StrlenMin extends AbstractStrlen
     /**
      * Sanitizes a string to a minimum length by padding it
      *
-     * @param int    $min       string length
+     * @param int    $min       minimum length
      * @param string $padString Pad using this string
      * @param int    $padType   A `STR_PAD_*` constant
      *

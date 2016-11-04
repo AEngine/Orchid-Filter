@@ -23,7 +23,6 @@ use AEngine\Orchid\Filter\Rule\Sanitize\Double;
 use AEngine\Orchid\Filter\Rule\Sanitize\Escape;
 use AEngine\Orchid\Filter\Rule\Sanitize\Integer;
 use AEngine\Orchid\Filter\Rule\Sanitize\Lowercase;
-use AEngine\Orchid\Filter\Rule\Sanitize\Now;
 use AEngine\Orchid\Filter\Rule\Sanitize\Remove;
 use AEngine\Orchid\Filter\Rule\Sanitize\Trim;
 use AEngine\Orchid\Filter\Rule\Validate\Boolean as isBoolean;
