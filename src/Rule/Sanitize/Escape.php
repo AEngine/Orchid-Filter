@@ -13,12 +13,13 @@ class Escape
      */
     public function __invoke()
     {
-        return function (&$field) {
-            if (is_string($field)) {
-                $field = str_replace(
+        return function (&$data, $field) {
+            $value = &$data[$field];
+            if (is_string($value)) {
+                $value = str_replace(
                     ['\'', '"', '>', '<', '`', '\\'],
                     ['&#039;', '&#34;', '&#62;', '&#60;', '&#96;', '&#92;'],
-                    $field
+                    $value
                 );
             }
 

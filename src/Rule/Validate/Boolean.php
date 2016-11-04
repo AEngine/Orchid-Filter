@@ -14,8 +14,8 @@ class Boolean extends AbstractBoolean
      */
     public function __invoke()
     {
-        return function ($field) {
-            return $this->isTrue($field) || $this->isFalse($field);
+        return function ($data, $field) {
+            return $this->isTrue($data[$field]) || $this->isFalse($data[$field]);
         };
     }
 }

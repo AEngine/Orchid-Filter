@@ -13,12 +13,13 @@ class Lowercase
      */
     public function __invoke()
     {
-        return function (&$field) {
-            if (!is_scalar($field)) {
+        return function (&$data, $field) {
+            $value = &$data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
-            $field = strtolower($field);
+            $value = strtolower($value);
 
             return true;
         };

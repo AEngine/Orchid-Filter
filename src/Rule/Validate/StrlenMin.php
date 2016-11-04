@@ -15,12 +15,13 @@ class StrlenMin
      */
     public function __invoke($min)
     {
-        return function ($field) use ($min) {
-            if (!is_scalar($field)) {
+        return function ($data, $field) use ($min) {
+            $value = $data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
-            return mb_strlen($field) >= $min;
+            return mb_strlen($value) >= $min;
         };
     }
 }

@@ -13,12 +13,13 @@ class Word
      */
     public function __invoke()
     {
-        return function (&$field) {
-            if (!is_scalar($field)) {
+        return function (&$data, $field) {
+            $value = &$data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
-            $field = preg_replace('/[^\p{L}\p{Nd}_]/u', '', $field);
+            $value = preg_replace('/[^\p{L}\p{Nd}_]/u', '', $value);
 
             return true;
         };

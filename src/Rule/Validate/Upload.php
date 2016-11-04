@@ -14,7 +14,7 @@ class Upload
      */
     public function __invoke()
     {
-        return function ($field) {
+        return function ($data, $field) {
             $expect = [
                 'error',
                 'name',
@@ -22,7 +22,7 @@ class Upload
                 'tmp_name',
                 'type',
             ];
-            $field = array_merge($expect, $field);
+            $value = array_merge($expect, $data[$field]);
         };
     }
 }

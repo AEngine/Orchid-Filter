@@ -16,12 +16,12 @@ class Ip
      */
     public function __invoke($flags = null)
     {
-        return function ($field) use ($flags) {
+        return function ($data, $field) use ($flags) {
             if ($flags === null) {
                 $flags = FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6;
             }
 
-            return filter_var($field, FILTER_VALIDATE_IP, $flags) !== false;
+            return filter_var($data[$field], FILTER_VALIDATE_IP, $flags) !== false;
         };
     }
 }

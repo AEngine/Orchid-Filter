@@ -17,20 +17,21 @@ class Boolean extends AbstractBoolean
      */
     public function __invoke($true = true, $false = false)
     {
-        return function (&$field) use ($true, $false) {
-            if ($this->isTrue($field)) {
-                $field = $true;
+        return function (&$data, $field) use ($true, $false) {
+            $value = &$data[$field];
+            if ($this->isTrue($value)) {
+                $value = $true;
 
                 return true;
             }
 
-            if ($this->isFalse($field)) {
-                $field = $false;
+            if ($this->isFalse($value)) {
+                $value = $false;
 
                 return true;
             }
 
-            $field = $field ? $true : $false;
+            $value = $value ? $true : $false;
             return true;
         };
     }

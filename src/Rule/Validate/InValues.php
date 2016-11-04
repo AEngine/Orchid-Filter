@@ -15,8 +15,8 @@ class InValues
      */
     public function __invoke(array $array)
     {
-        return function ($field) use ($array) {
-            return in_array($field, $array, true);
+        return function ($data, $field) use ($array) {
+            return in_array($data[$field], $array, true);
         };
     }
 }

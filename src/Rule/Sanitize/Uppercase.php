@@ -13,12 +13,13 @@ class Uppercase
      */
     public function __invoke()
     {
-        return function (&$field) {
-            if (!is_scalar($field)) {
+        return function (&$data, $field) {
+            $value = &$data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
-            $field = strtoupper($field);
+            $value = strtoupper($value);
 
             return true;
         };

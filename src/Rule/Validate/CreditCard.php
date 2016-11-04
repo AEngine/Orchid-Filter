@@ -13,12 +13,13 @@ class CreditCard
      */
     public function __invoke()
     {
-        return function ($field) {
+        return function ($data, $field) {
+            $value = $data[$field];
             // get the value; remove spaces, dashes, and dots
-            $field = str_replace([' ', '-', '.'], '', (string)$field);
+            $value = str_replace([' ', '-', '.'], '', (string)$value);
 
             // is it composed only of digits?
-            if (!ctype_digit($field)) {
+            if (!ctype_digit($value)) {
                 return false;
             }
 
@@ -31,8 +32,8 @@ class CreditCard
             $sum = 0;
             $flip = 0;
 
-            for ($i = strlen($field) - 1; $i >= 0; $i--) {
-                $sum += $sumTable[$flip++ & 0x1][$field[$i]];
+            for ($i = strlen($value) - 1; $i >= 0; $i--) {
+                $sum += $sumTable[$flip++ & 0x1][$value[$i]];
             }
 
             return $sum % 10 === 0;

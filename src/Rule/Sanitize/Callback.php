@@ -13,8 +13,8 @@ class Callback
      */
     public function __invoke()
     {
-        return function (callable $field) {
-            return $field();
+        return function (&$data, $field) {
+            return $data[$field]($data, $field);
         };
     }
 }

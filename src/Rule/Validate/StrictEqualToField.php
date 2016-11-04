@@ -15,13 +15,13 @@ class StrictEqualToField
      */
     public function __invoke($other_field)
     {
-        return function ($field, $data) use ($other_field) {
+        return function ($data, $field) use ($other_field) {
             // the other field needs to exist and *not* be null
             if (!isset($data[$other_field])) {
                 return false;
             }
 
-            return $field === $data[$other_field];
+            return $data[$field] === $data[$other_field];
         };
     }
 }

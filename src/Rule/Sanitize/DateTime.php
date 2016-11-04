@@ -39,15 +39,16 @@ class DateTime
      */
     public function __invoke($format = 'Y-m-d H:i:s')
     {
-        return function (&$field) use ($format) {
-            if (is_numeric($field)) {
-                $field = date($format, $field);
+        return function (&$data, $field) use ($format) {
+            $value = &$data[$field];
+            if (is_numeric($value)) {
+                $value = date($format, $value);
 
                 return true;
             }
 
-            if (is_string($field) && ($time = strtotime($field)) !== false) {
-                $field = date($format, $time);
+            if (is_string($value) && ($time = strtotime($value)) !== false) {
+                $value = date($format, $time);
 
                 return true;
             }

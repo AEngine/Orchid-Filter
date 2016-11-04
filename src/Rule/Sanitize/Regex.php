@@ -16,12 +16,13 @@ class Regex
      */
     public function __invoke($expr, $replace)
     {
-        return function (&$field) use ($expr, $replace) {
-            if (!is_scalar($field)) {
+        return function (&$data, $field) use ($expr, $replace) {
+            $value = &$data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
-            $field = preg_replace($expr, $replace, $field);
+            $value = preg_replace($expr, $replace, $value);
 
             return true;
         };

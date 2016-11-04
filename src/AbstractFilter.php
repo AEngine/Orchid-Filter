@@ -106,7 +106,7 @@ abstract class AbstractFilter
         // check rule by fields
         foreach ($this->rule as $field => $rules) {
             foreach ($rules as $rule) {
-                if ($rule['rule']($this->data[$field], $this->data) !== true) {
+                if ($rule['rule']($this->data, $field) !== true) {
                     $this->error[$field] = $rule['message'] ? $rule['message'] : false;
                     break;
                 }
@@ -117,7 +117,7 @@ abstract class AbstractFilter
         if ($this->globalRule) {
             foreach ($this->data as $field => $value) {
                 foreach ($this->globalRule as $rule) {
-                    if ($rule['rule']($this->data[$field], $this->data) !== true) {
+                    if ($rule['rule']($this->data, $field) !== true) {
                         $this->error[$field] = $rule['message'] ? $rule['message'] : false;
                         break;
                     }

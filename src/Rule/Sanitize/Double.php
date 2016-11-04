@@ -15,9 +15,10 @@ class Double
      */
     public function __invoke($precision = 0)
     {
-        return function (&$field) use ($precision) {
-            if (is_numeric($field) || is_string($field)) {
-                $field = round((double)$field, $precision);
+        return function (&$data, $field) use ($precision) {
+            $value = &$data[$field];
+            if (is_numeric($value) || is_string($value)) {
+                $value = round((double)$value, $precision);
 
                 return true;
             }

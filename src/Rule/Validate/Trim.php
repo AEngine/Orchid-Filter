@@ -15,12 +15,13 @@ class Trim
      */
     public function __invoke($chars = " \t\n\r\0\x0B")
     {
-        return function ($field) use ($chars) {
-            if (!is_scalar($field)) {
+        return function ($data, $field) use ($chars) {
+            $value = $data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
-            return trim($field, $chars) == $field;
+            return trim($value, $chars) == $value;
         };
     }
 }

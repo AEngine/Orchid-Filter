@@ -15,8 +15,8 @@ class Value
      */
     public function __invoke($otherValue)
     {
-        return function (&$field) use ($otherValue) {
-            $field = $otherValue;
+        return function (&$data, $field) use ($otherValue) {
+            $data[$field] = $otherValue;
 
             return true;
         };

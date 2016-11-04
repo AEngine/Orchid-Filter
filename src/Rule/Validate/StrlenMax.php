@@ -15,12 +15,13 @@ class StrlenMax
      */
     public function __invoke($max)
     {
-        return function ($field) use ($max) {
-            if (!is_scalar($field)) {
+        return function ($data, $field) use ($max) {
+            $value = $data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
-            return mb_strlen($field) <= $max;
+            return mb_strlen($value) <= $max;
         };
     }
 }

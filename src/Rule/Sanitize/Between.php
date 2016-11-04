@@ -17,15 +17,16 @@ class Between
      */
     public function __invoke($min, $max)
     {
-        return function (&$field) use ($min, $max) {
-            if (!is_scalar($field)) {
+        return function (&$data, $field) use ($min, $max) {
+            $value = &$data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
-            if ($field < $min) {
-                $field = $min;
+            if ($value < $min) {
+                $value = $min;
             }
-            if ($field > $max) {
-                $field = $max;
+            if ($value > $max) {
+                $value = $max;
             }
 
             return true;

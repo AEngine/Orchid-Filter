@@ -15,12 +15,13 @@ class Regex
      */
     public function __invoke($expr)
     {
-        return function ($field) use ($expr) {
-            if (!is_scalar($field)) {
+        return function ($data, $field) use ($expr) {
+            $value = $data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
-            return (bool)preg_match($expr, $field);
+            return (bool)preg_match($expr, $value);
         };
     }
 }

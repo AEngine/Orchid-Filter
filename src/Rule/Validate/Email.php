@@ -13,8 +13,8 @@ class Email
      */
     public function __invoke()
     {
-        return function ($field) {
-            return !!filter_var($field, FILTER_VALIDATE_EMAIL);
+        return function ($data, $field) {
+            return !!filter_var($data[$field], FILTER_VALIDATE_EMAIL);
         };
     }
 }

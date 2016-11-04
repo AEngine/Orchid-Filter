@@ -15,8 +15,8 @@ class StrictEqualToValue
      */
     public function __invoke($other_value)
     {
-        return function ($field) use ($other_value) {
-            return $field === $other_value;
+        return function ($data, $field) use ($other_value) {
+            return $data[$field] === $other_value;
         };
     }
 }

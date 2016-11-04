@@ -16,11 +16,12 @@ class StrlenBetween
      */
     public function __invoke($min, $max)
     {
-        return function ($field) use ($min, $max) {
-            if (!is_scalar($field)) {
+        return function ($data, $field) use ($min, $max) {
+            $value = $data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
-            $len = mb_strlen($field);
+            $len = mb_strlen($value);
 
             return ($len >= $min && $len <= $max);
         };

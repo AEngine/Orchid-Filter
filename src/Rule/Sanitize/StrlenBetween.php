@@ -19,15 +19,16 @@ class StrlenBetween extends AbstractStrlen
      */
     public function __invoke($min, $max, $padString = ' ', $padType = STR_PAD_RIGHT)
     {
-        return function (&$field) use ($min, $max, $padString, $padType) {
-            if (!is_scalar($field)) {
+        return function (&$data, $field) use ($min, $max, $padString, $padType) {
+            $value = &$data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
-            if (mb_strlen($field) < $min) {
-                $field = $this->mb_str_pad($field, $min, $padString, $padType);;
+            if (mb_strlen($value) < $min) {
+                $value = $this->mb_str_pad($value, $min, $padString, $padType);;
             }
-            if (mb_strlen($field) > $max) {
-                $field = mb_substr($field, 0, $max);
+            if (mb_strlen($value) > $max) {
+                $value = mb_substr($value, 0, $max);
             }
 
             return true;

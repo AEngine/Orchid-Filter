@@ -16,12 +16,13 @@ class Str
      */
     public function __invoke($find = null, $replace = null)
     {
-        return function (&$field) use ($find, $replace) {
-            if (!is_scalar($field)) {
+        return function (&$data, $field) use ($find, $replace) {
+            $value = &$data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
             if ($find || $replace) {
-                $field = str_replace($find, $replace, $field);
+                $value = str_replace($find, $replace, $value);
             }
 
             return true;

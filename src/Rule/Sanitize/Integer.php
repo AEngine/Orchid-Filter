@@ -13,10 +13,11 @@ class Integer
      */
     public function __invoke()
     {
-        return function (&$field) {
-            if (is_numeric($field) || is_string($field)) {
-                $field = (float)$field;
-                $field = (int)$field;
+        return function (&$data, $field) {
+            $value = &$data[$field];
+            if (is_numeric($value) || is_string($value)) {
+                $value = (float)$value;
+                $value = (int)$value;
 
                 return true;
             }

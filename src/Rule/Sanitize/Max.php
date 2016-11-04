@@ -15,12 +15,13 @@ class Max
      */
     public function __invoke($max)
     {
-        return function (&$field) use ($max) {
-            if (!is_scalar($field)) {
+        return function (&$data, $field) use ($max) {
+            $value = &$data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
-            if ($field > $max) {
-                $field = $max;
+            if ($value > $max) {
+                $value = $max;
             }
 
             return true;

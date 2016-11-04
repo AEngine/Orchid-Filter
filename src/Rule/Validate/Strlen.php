@@ -15,12 +15,13 @@ class Strlen
      */
     public function __invoke($len)
     {
-        return function ($field) use ($len) {
-            if (!is_scalar($field)) {
+        return function ($data, $field) use ($len) {
+            $value = $data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
-            return mb_strlen($field) == $len;
+            return mb_strlen($value) == $len;
         };
     }
 }

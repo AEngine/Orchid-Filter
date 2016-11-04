@@ -13,13 +13,14 @@ class Double
      */
     public function __invoke()
     {
-        return function ($field) {
-            if (is_float($field)) {
+        return function ($data, $field) {
+            $value = $data[$field];
+            if (is_float($value)) {
                 return true;
             }
 
             // otherwise, must be numeric, and must be same as when cast to float
-            return is_numeric($field) && $field == (float)$field;
+            return is_numeric($value) && $value == (float)$value;
         };
     }
 }

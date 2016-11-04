@@ -18,18 +18,19 @@ class Strlen extends AbstractStrlen
      */
     public function __invoke($len, $padString = ' ', $padType = STR_PAD_RIGHT)
     {
-        return function (&$field) use ($len, $padString, $padType) {
-            if (!is_scalar($field)) {
+        return function (&$data, $field) use ($len, $padString, $padType) {
+            $value = &$data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
-            $strlen = mb_strlen($field);
+            $strlen = mb_strlen($value);
 
             if ($strlen < $len) {
-                $field = $this->mb_str_pad($field, $len, $padString, $padType);
+                $value = $this->mb_str_pad($value, $len, $padString, $padType);
             }
             if ($strlen > $len) {
-                $field = mb_substr($field, 0, $len);
+                $value = mb_substr($value, 0, $len);
             }
 
             return true;

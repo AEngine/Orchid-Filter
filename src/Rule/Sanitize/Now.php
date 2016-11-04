@@ -15,8 +15,8 @@ class Now
      */
     public function __invoke($format = 'Y-m-d H:i:s')
     {
-        return function (&$field) use ($format) {
-            $field = date($format);
+        return function (&$data, $field) use ($format) {
+            $data[$field] = date($format);
 
             return true;
         };

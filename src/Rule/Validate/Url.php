@@ -13,8 +13,9 @@ class Url
      */
     public function __invoke()
     {
-        return function ($field) {
-            if (!is_scalar($field)) {
+        return function ($data, $field) {
+            $value = $data[$field];
+            if (!is_scalar($value)) {
                 return false;
             }
 
@@ -25,12 +26,12 @@ class Url
                 . "<>#%\""       // punctuation
                 . ";/?:@&=";     // reserved
             $valid = 'a-zA-Z0-9' . preg_quote($other, '/');
-            $clean = preg_replace("/[^$valid]/", '', $field);
-            if ($field != $clean) {
+            $clean = preg_replace("/[^$valid]/", '', $value);
+            if ($value != $clean) {
                 return false;
             }
 
-            $result = @parse_url($field);
+            $result = @parse_url($value);
             if (empty($result['scheme']) || trim($result['scheme']) == '' ||
                 empty($result['host']) || trim($result['host']) == ''
             ) {

@@ -13,13 +13,14 @@ class Integer
      */
     public function __invoke()
     {
-        return function ($field) {
-            if (is_int($field)) {
+        return function ($data, $field) {
+            $value = $data[$field];
+            if (is_int($value)) {
                 return true;
             }
 
             // otherwise, must be numeric, and must be same as when cast to int
-            return is_numeric($field) && $field == (int)$field;
+            return is_numeric($value) && $value == (int)$value;
         };
     }
 }
