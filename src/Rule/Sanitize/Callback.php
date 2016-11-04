@@ -1,17 +1,17 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Callback
+class Callback
 {
     /**
      * Sanitizes a value using a callable
      *
      * @return Closure
      */
-    public function Callback()
+    public function __invoke()
     {
         return function (callable $field) {
             return $field();

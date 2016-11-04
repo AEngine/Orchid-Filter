@@ -1,0 +1,27 @@
+<?php
+
+namespace AEngine\Orchid\Filter\Rule\Validate;
+
+use Closure;
+
+class StrictEqualToField
+{
+    /**
+     * Validates that this value is loosely equal to some other subject field
+     *
+     * @param string $other_field Check against the value of this subject field
+     *
+     * @return Closure
+     */
+    public function __invoke($other_field)
+    {
+        return function ($field, $data) use ($other_field) {
+            // the other field needs to exist and *not* be null
+            if (!isset($data[$other_field])) {
+                return false;
+            }
+
+            return $field === $data[$other_field];
+        };
+    }
+}

@@ -1,10 +1,10 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Min
+class Min
 {
     /**
      * Sanitizes to minimum value if value is less than min
@@ -13,7 +13,7 @@ trait Min
      *
      * @return Closure
      */
-    public function Min($min)
+    public function __invoke($min)
     {
         return function (&$field) use ($min) {
             if (!is_scalar($field)) {

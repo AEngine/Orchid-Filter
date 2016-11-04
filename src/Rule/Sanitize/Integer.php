@@ -1,17 +1,17 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Integer
+class Integer
 {
     /**
      * Forces the value to an integer
      *
      * @return Closure
      */
-    public function Integer()
+    public function __invoke()
     {
         return function (&$field) {
             if (is_numeric($field) || is_string($field)) {

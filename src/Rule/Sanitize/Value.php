@@ -1,10 +1,10 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Value
+class Value
 {
     /**
      * Modifies the field value to match another value
@@ -13,7 +13,7 @@ trait Value
      *
      * @return Closure
      */
-    public function Value($otherValue)
+    public function __invoke($otherValue)
     {
         return function (&$field) use ($otherValue) {
             $field = $otherValue;

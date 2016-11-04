@@ -1,8 +1,8 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule;
+namespace AEngine\Orchid\Filter\Rule;
 
-trait BooleanHelper
+abstract class AbstractBoolean
 {
     /**
      * Pseudo-true representations.

@@ -1,17 +1,17 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Uppercase
+class Uppercase
 {
     /**
      * Sanitizes a string to uppercase
      *
      * @return Closure
      */
-    public function Uppercase()
+    public function __invoke()
     {
         return function (&$field) {
             if (!is_scalar($field)) {

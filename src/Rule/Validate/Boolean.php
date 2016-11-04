@@ -1,22 +1,20 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Validate;
+namespace AEngine\Orchid\Filter\Rule\Validate;
 
-use AEngine\Orchid\Filter\Validate\Rule\BooleanHelper;
+use AEngine\Orchid\Filter\Rule\AbstractBoolean;
 use Closure;
 
-trait Boolean
+class Boolean extends AbstractBoolean
 {
-    use BooleanHelper;
-
     /**
      * Validates that the value is a boolean representation
      *
      * @return Closure
      */
-    public function Boolean()
+    public function __invoke()
     {
-        return function (&$field) {
+        return function ($field) {
             return $this->isTrue($field) || $this->isFalse($field);
         };
     }

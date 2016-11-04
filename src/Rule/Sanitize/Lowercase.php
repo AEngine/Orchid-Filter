@@ -1,17 +1,17 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Lowercase
+class Lowercase
 {
     /**
      * Sanitizes a string to lowercase
      *
      * @return Closure
      */
-    public function Lowercase()
+    public function __invoke()
     {
         return function (&$field) {
             if (!is_scalar($field)) {

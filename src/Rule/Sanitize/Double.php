@@ -1,10 +1,10 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Double
+class Double
 {
     /**
      * Forces the value to a float
@@ -13,7 +13,7 @@ trait Double
      *
      * @return Closure
      */
-    public function Double($precision = 0)
+    public function __invoke($precision = 0)
     {
         return function (&$field) use ($precision) {
             if (is_numeric($field) || is_string($field)) {

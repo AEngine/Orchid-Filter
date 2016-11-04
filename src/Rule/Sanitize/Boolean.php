@@ -1,14 +1,12 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
-use AEngine\Orchid\Filter\Validate\Rule\BooleanHelper;
+use AEngine\Orchid\Filter\Rule\AbstractBoolean;
 use Closure;
 
-trait Boolean
+class Boolean extends AbstractBoolean
 {
-    use BooleanHelper;
-
     /**
      * Sanitize the value to a boolean, or a pseudo-boolean
      *
@@ -17,7 +15,7 @@ trait Boolean
      *
      * @return Closure
      */
-    public function Boolean($true = true, $false = false)
+    public function __invoke($true = true, $false = false)
     {
         return function (&$field) use ($true, $false) {
             if ($this->isTrue($field)) {
@@ -25,13 +23,15 @@ trait Boolean
 
                 return true;
             }
+
             if ($this->isFalse($field)) {
                 $field = $false;
 
                 return true;
             }
 
-            return $field ? $true : $false;
+            $field = $field ? $true : $false;
+            return true;
         };
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Str
+class Str
 {
     /**
      * Forces the value to a string, optionally applying `str_replace()`
@@ -14,7 +14,7 @@ trait Str
      *
      * @return Closure
      */
-    public function Str($find = null, $replace = null)
+    public function __invoke($find = null, $replace = null)
     {
         return function (&$field) use ($find, $replace) {
             if (!is_scalar($field)) {

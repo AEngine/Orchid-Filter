@@ -1,10 +1,10 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Trim
+class Trim
 {
     /**
      * Sanitizes a value to a string using trim()
@@ -13,7 +13,7 @@ trait Trim
      *
      * @return Closure
      */
-    public function Trim($chars = " \t\n\r\0\x0B")
+    public function __invoke($chars = " \t\n\r\0\x0B")
     {
         return function (&$field) use ($chars) {
             if (is_scalar($field) || $field === null) {

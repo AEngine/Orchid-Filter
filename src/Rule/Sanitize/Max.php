@@ -1,10 +1,10 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Max
+class Max
 {
     /**
      * Sanitizes to maximum value if value is greater than max
@@ -13,7 +13,7 @@ trait Max
      *
      * @return Closure
      */
-    public function Max($max)
+    public function __invoke($max)
     {
         return function (&$field) use ($max) {
             if (!is_scalar($field)) {

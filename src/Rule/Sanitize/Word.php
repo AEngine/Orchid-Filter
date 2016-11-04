@@ -1,17 +1,17 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Word
+class Word
 {
     /**
      * Strips non-word characters within the value (letters, numbers, and underscores)
      *
      * @return Closure
      */
-    public function Word()
+    public function __invoke()
     {
         return function (&$field) {
             if (!is_scalar($field)) {

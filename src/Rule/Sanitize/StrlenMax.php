@@ -1,10 +1,10 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait StrlenMax
+class StrlenMax
 {
     /**
      * Sanitizes a string to a maximum length by chopping it at the right
@@ -13,7 +13,7 @@ trait StrlenMax
      *
      * @return Closure
      */
-    public function StrlenMax($max)
+    public function __invoke($max)
     {
         return function (&$field) use ($max) {
             if (!is_scalar($field)) {

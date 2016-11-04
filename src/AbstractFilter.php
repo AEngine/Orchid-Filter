@@ -7,10 +7,11 @@ use RuntimeException;
 
 abstract class AbstractFilter
 {
-    protected $data  = [];
-    protected $field = null;
-    protected $rule  = [];
-    protected $error = [];
+    protected $data       = [];
+    protected $field      = null;
+    protected $rule       = [];
+    protected $globalRule = [];
+    protected $error      = [];
 
     /**
      * Validator constructor
@@ -27,7 +28,7 @@ abstract class AbstractFilter
      *
      * @param string $field
      *
-     * @return $this
+     * @return self
      */
     public function attr($field)
     {
@@ -41,7 +42,7 @@ abstract class AbstractFilter
      *
      * @param string $field
      *
-     * @return $this
+     * @return self
      */
     public function option($field)
     {
@@ -55,20 +56,20 @@ abstract class AbstractFilter
     }
 
     /**
-     * Adds to selected field validation rule
+     * Adds to selected field rule
      *
-     * @param Closure $validator
-     * @param string  $message
+     * @param Closure $rule
+     * @param string  $message when error return this text
      *
-     * @return $this
+     * @return self
      * @throws RuntimeException
      */
-    public function addRule($validator, $message = '')
+    public function addRule($rule, $message = '')
     {
         if ($this->field) {
             $this->rule[$this->field][] = [
-                'validator' => $validator,
-                'message'   => $message,
+                'rule'    => $rule,
+                'message' => $message,
             ];
         }
 
@@ -76,19 +77,50 @@ abstract class AbstractFilter
     }
 
     /**
-     * Performs validation on the fields specified rules
+     * Adds global rule
+     *
+     * @param Closure $rule
+     * @param string  $message
+     *
+     * @return $this
+     */
+    public function addGlobalRule($rule, $message = '')
+    {
+        $this->globalRule[] = [
+            'rule'    => $rule,
+            'message' => $message,
+        ];
+
+        return $this;
+    }
+
+    /**
+     * Performs rules
      *
      * @return array|bool
      */
-    public function validate()
+    public function run()
     {
         $this->error = [];
 
+        // check rule by fields
         foreach ($this->rule as $field => $rules) {
             foreach ($rules as $rule) {
-                if ($rule['validator']($this->data[$field]) !== true) {
+                if ($rule['rule']($this->data[$field], $this->data) !== true) {
                     $this->error[$field] = $rule['message'] ? $rule['message'] : false;
                     break;
+                }
+            }
+        }
+
+        // check global
+        if ($this->globalRule) {
+            foreach ($this->data as $field => $value) {
+                foreach ($this->globalRule as $rule) {
+                    if ($rule['rule']($this->data[$field], $this->data) !== true) {
+                        $this->error[$field] = $rule['message'] ? $rule['message'] : false;
+                        break;
+                    }
                 }
             }
         }

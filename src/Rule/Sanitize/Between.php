@@ -1,10 +1,10 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Between
+class Between
 {
     /**
      * If the value is less than min, will set the min value,
@@ -15,7 +15,7 @@ trait Between
      *
      * @return Closure
      */
-    public function Between($min, $max)
+    public function __invoke($min, $max)
     {
         return function (&$field) use ($min, $max) {
             if (!is_scalar($field)) {

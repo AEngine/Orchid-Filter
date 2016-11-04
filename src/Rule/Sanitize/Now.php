@@ -1,10 +1,10 @@
 <?php
 
-namespace AEngine\Orchid\Filter\Validate\Rule\Sanitize;
+namespace AEngine\Orchid\Filter\Rule\Sanitize;
 
 use Closure;
 
-trait Now
+class Now
 {
     /**
      * Force the value to the current time, default format "Y-m-d H:i:s".
@@ -13,7 +13,7 @@ trait Now
      *
      * @return Closure
      */
-    public function Now($format = 'Y-m-d H:i:s')
+    public function __invoke($format = 'Y-m-d H:i:s')
     {
         return function (&$field) use ($format) {
             $field = date($format);
