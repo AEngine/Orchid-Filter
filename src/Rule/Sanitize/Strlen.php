@@ -27,7 +27,7 @@ class Strlen extends AbstractStrlen
             $strlen = mb_strlen($value);
 
             if ($strlen < $len) {
-                $value = $this->mb_str_pad($value, $len, $padString, $padType);
+                $value = $this->mbStrPad($value, $len, $padString, $padType);
             }
             if ($strlen > $len) {
                 $value = mb_substr($value, 0, $len);

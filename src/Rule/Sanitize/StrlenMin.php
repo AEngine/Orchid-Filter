@@ -24,7 +24,7 @@ class StrlenMin extends AbstractStrlen
                 return false;
             }
             if (mb_strlen($value) < $min) {
-                $value = $this->mb_str_pad($value, $min, $padString, $padType);;
+                $value = $this->mbStrPad($value, $min, $padString, $padType);;
             }
 
             return true;

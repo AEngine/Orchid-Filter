@@ -12,7 +12,7 @@ abstract class AbstractStrlen
      *
      * @return string
      */
-    protected function mb_str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT)
+    protected function mbStrPad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT)
     {
         $diff = strlen($input) - mb_strlen($input);
 
