@@ -11,29 +11,39 @@ Run the following command in the root directory of your web project:
   
 > `composer require aengine/orchid-filter`
 
-### Usage
+#### Contributing
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+#### License
+The Orchid Framework is licensed under the MIT license. See [License File](LICENSE.md) for more information.
+
+#### Usage
 Extends class `AbstractFilter`
 ```php
 class Filter extends AbstractFilter
 {
+    use TraitHelper;
+
     public static function newUser(array &$data = [])
     {
         $filter = new self($data);
 
-        $filter->addGlobalRule((new Escape)()) // global rule for all fields in $data
-               ->addGlobalRule((new Trim)())
+        $filter->addGlobalRule($filter->leadEscape()) // global rule for all fields in $data
+               ->addGlobalRule($filter->leadTrim())
                ->attr('username')
-                   ->addRule((new StrlenMax)(20))
-                   ->addRule((new StrlenMin)(3))
+                   ->addRule($filter->checkStrlenMax(20)) // parameter passing for checking
+                   ->addRule($filter->checkStrlenMin(3))
                ->attr('password')
-                   ->addRule((new StrlenMax)(20))
-                   ->addRule((new StrlenMin)(3))
+                   ->addRule($filter->checkStrlenMax(20))
+                   ->addRule($filter->checkStrlenMin(5))
                ->attr('password_again')
-                   ->addRule((new StrlenMax)(20))
-                   ->addRule((new StrlenMin)(3))
-                   ->addRule((new EqualToField)('password'), 'Passwords do not match')
+                   ->addRule($filter->checkStrlenMax(20))
+                   ->addRule($filter->checkStrlenMin(5))
+                   ->addRule($filter->checkEqualToField('password'), 'Passwords do not match') // second arg is reason error
                ->attr('email')
-                   ->addRule((new Email)());
+                   ->addRule($filter->checkEmail())
+                ->attr('ip')
+                    ->addRule($filter->checkIp());
 
         return $filter->run();
     }
