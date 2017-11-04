@@ -4,7 +4,7 @@ namespace AEngine\Orchid\Filter;
 
 use Closure;
 
-trait TraitHelper
+trait TraitFilter
 {
     // Russian date format (ГОСТ Р 6.30-2003 (п. 3.11))
     public static $DATE_RU = 'd.m.Y';

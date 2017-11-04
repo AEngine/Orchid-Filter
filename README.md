@@ -22,7 +22,7 @@ Extends class `AbstractFilter`
 ```php
 class Filter extends AbstractFilter
 {
-    use TraitHelper;
+    use TraitFilter;
 
     public static function newUser(array &$data = [])
     {
