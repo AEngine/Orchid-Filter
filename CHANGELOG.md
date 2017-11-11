@@ -6,7 +6,7 @@ Orchid-Filter repository.
 ## 1.1.2 (2017-11-11)
 - Global rules now check only those fields that have been selected through the `attr` or `option` methods
 
-## 1.1.1 (2017-11-04)
+### 1.1.1 (2017-11-04)
 - Rename trait file from `TraitHelper` to `TraitFilter`
 
 ### 1.1.0 (2017-09-13)
