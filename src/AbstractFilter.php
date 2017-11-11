@@ -11,6 +11,7 @@ abstract class AbstractFilter
     protected $field      = null;
     protected $rule       = [];
     protected $globalRule = [];
+    protected $globalList = [];
     protected $error      = [];
 
     /**
@@ -32,7 +33,7 @@ abstract class AbstractFilter
      */
     public function attr($field)
     {
-        $this->field = $field;
+        $this->globalList[] = $this->field = $field;
 
         return $this;
     }
@@ -49,7 +50,7 @@ abstract class AbstractFilter
         $this->field = null;
 
         if (!empty($this->data[$field])) {
-            $this->field = $field;
+            $this->globalList[] = $this->field = $field;
         }
 
         return $this;
@@ -113,9 +114,9 @@ abstract class AbstractFilter
             }
         }
 
-        // check global
+        // check global by selected fields in globalList
         if ($this->globalRule) {
-            foreach ($this->data as $field => $value) {
+            foreach (array_unique($this->globalList) as $field) {
                 foreach ($this->globalRule as $rule) {
                     if ($rule['rule']($this->data, $field) !== true) {
                         $this->error[$field] = $rule['message'] ? $rule['message'] : false;

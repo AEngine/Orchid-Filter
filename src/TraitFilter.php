@@ -325,9 +325,9 @@ trait TraitFilter
     /**
      * Sanitizes a string to an exact length by padding or chopping it
      *
-     * @param int $len minimum string length
+     * @param int    $len minimum string length
      * @param string $padString Pad using this string
-     * @param int $padType A `STR_PAD_*` constant
+     * @param int    $padType A `STR_PAD_*` constant
      *
      * @return Closure
      */
@@ -355,10 +355,10 @@ trait TraitFilter
     /**
      * Sanitizes a string to a length range by padding or chopping it
      *
-     * @param int $min minimum length
-     * @param int $max maximum length
+     * @param int    $min minimum length
+     * @param int    $max maximum length
      * @param string $padString Pad using this string
-     * @param int $padType A `STR_PAD_*` constant
+     * @param int    $padType A `STR_PAD_*` constant
      *
      * @return Closure
      */
@@ -405,9 +405,9 @@ trait TraitFilter
     /**
      * Sanitizes a string to a minimum length by padding it
      *
-     * @param int $min minimum length
+     * @param int    $min minimum length
      * @param string $padString Pad using this string
-     * @param int $padType A `STR_PAD_*` constant
+     * @param int    $padType A `STR_PAD_*` constant
      *
      * @return Closure
      */
@@ -1065,6 +1065,7 @@ trait TraitFilter
 
     /**
      * @param $value
+     *
      * @return bool
      */
     protected function isTrue($value)
@@ -1078,6 +1079,7 @@ trait TraitFilter
 
     /**
      * @param $value
+     *
      * @return bool
      */
     protected function isFalse($value)
@@ -1091,6 +1093,7 @@ trait TraitFilter
 
     /**
      * @param $value
+     *
      * @return bool
      */
     protected function isBoolish($value)
@@ -1104,9 +1107,9 @@ trait TraitFilter
 
     /**
      * @param string $input
-     * @param int $pad_length
+     * @param int    $pad_length
      * @param string $pad_string
-     * @param int $pad_type
+     * @param int    $pad_type
      *
      * @return string
      */
