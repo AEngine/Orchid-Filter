@@ -3,7 +3,10 @@
 The latest version of this file can be found at the master branch of the
 Orchid-Filter repository.
 
-## 1.1.2 (2017-11-11)
+## 1.1.3 (2017-12-02)
+- Update dependency
+
+### 1.1.2 (2017-11-11)
 - Global rules now check only those fields that have been selected through the `attr` or `option` methods
 
 ### 1.1.1 (2017-11-04)
