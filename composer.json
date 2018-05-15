@@ -1,6 +1,6 @@
 {
   "name": "aengine/orchid-filter",
-  "description": "Filter extension for Orchid Framework",
+  "description": "Filter data",
   "keywords": [
     "php",
     "framework",
@@ -20,8 +20,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
-    "aengine/orchid": "^1.0"
+    "php": ">=7.0"
   },
   "autoload": {
     "psr-4": {
