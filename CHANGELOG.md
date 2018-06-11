@@ -3,7 +3,10 @@
 The latest version of this file can be found at the master branch of the
 Orchid-Filter repository.
 
-## 1.1.3 (2017-12-02)
+## 1.1.4 (2018-06-11)
+- Remove dependency from aengine/orchid-core
+
+### 1.1.3 (2017-12-02)
 - Update dependency
 
 ### 1.1.2 (2017-11-11)
