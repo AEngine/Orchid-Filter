@@ -730,7 +730,7 @@ trait TraitFilter
     /**
      * Validates that the value is less than than or equal to a maximum
      *
-     * @param string $max maximum valid value
+     * @param int $max maximum valid value
      *
      * @return Closure
      */
@@ -749,7 +749,7 @@ trait TraitFilter
     /**
      * Validates that the value is greater than or equal to a minimum
      *
-     * @param string $min minimum valid value
+     * @param int $min minimum valid value
      *
      * @return Closure
      */
@@ -1003,11 +1003,12 @@ trait TraitFilter
             }
 
             // first, make sure there are no invalid chars, list from ext/filter
-            $other = "$-_.+"        // safe
+            $other = "$-_.+"     // safe
                 . "!*'(),"       // extra
                 . "{}|\\^~[]`"   // national
                 . "<>#%\""       // punctuation
                 . ";/?:@&=";     // reserved
+
             $valid = 'a-zA-Z0-9' . preg_quote($other, '/');
             $clean = preg_replace("/[^$valid]/", '', $value);
             if ($value != $clean) {

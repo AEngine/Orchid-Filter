@@ -17,13 +17,14 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 The Orchid Framework is licensed under the MIT license. See [License File](LICENSE.md) for more information.
 
 #### Usage
-Extends class `AbstractFilter`
+Extends class `Filter`
 ```php
-class Filter extends AbstractFilter
+class  UserFilter extends Filter
 {
     use TraitFilter;
 
-    public static function newUser(array &$data = [])
+    // check data for create new user
+    public static function add(array &$data = [])
     {
         $filter = new self($data);
 
@@ -47,11 +48,7 @@ class Filter extends AbstractFilter
         return $filter->run();
     }
 }
-```
 
-Check data by new filter
-
-```php
 // check data
 $data = [
     'username'       => 'Aleksey',
@@ -61,7 +58,7 @@ $data = [
     'ip'             => '127.0.0.1',
 ];
 
-$result = Filter::newUser($data);
+$result = UserFilter::add($data);
 
 if ($result === true) {
     // check ok
@@ -70,4 +67,78 @@ if ($result === true) {
     // found an error
     var_dump($result);
 }
+```
+
+#### Usage with FilterModel class and Annotations
+
+Uses annotations to describe filtering rules
+
+```php
+use AEngine\Orchid\Filter as Filter;
+
+class User extends FilterModel
+{
+    /**
+     * @Filter\Required()
+     * @Filter\Check\StrlenMin(3)
+     * @Filter\Check\StrlenMax(20)
+     *
+     * @var string
+     */
+    public $username;
+
+    /**
+     * @Filter\Required()
+     * @Filter\Check\StrlenMin(5)
+     * @Filter\Check\StrlenMax(20)
+     *
+     * @var string
+     */
+    public $password;
+
+    /**
+     * @Filter\Required()
+     * @Filter\Check\StrlenMin(5)
+     * @Filter\Check\StrlenMax(20)
+     * @Filter\Check\EqualToField('password', message="Passwords do not match")
+     *
+     * @var string
+     */
+    public $password_again;
+
+    /**
+     * @Filter\Required()
+     * @Filter\Check\Email()
+     *
+     * @var string
+     */
+    public $email;
+
+    /**
+     * @Filter\Required()
+     * @Filter\Check\Ip()
+     *
+     * @var string
+     */
+    public $ip;
+}
+
+$user = new User([
+    'username'       => 'Aleksey',
+    'password'       => 'MyPassword',
+    'password_again' => 'MyPassword',
+    'email'          => 'aleksey@example.com',
+    'ip'             => '127.0.0.1',
+]);
+
+$result = $car->filter();
+
+if ($result === true) {
+    // check ok
+    var_dump($user); // sanitized model
+} else {
+    // found an error
+    var_dump($result);
+}
+
 ```
