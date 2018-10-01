@@ -14,14 +14,14 @@ abstract class FilterAnnotation extends Annotation
      *
      * @var array
      */
-    protected $true = ['1', 'on', 'true', 't', 'yes', 'y'];
+    protected static $true = ['1', 'on', 'true', 't', 'yes', 'y'];
 
     /**
      * Pseudo-false representations; `null` and empty-string are *not* included.
      *
      * @var array
      */
-    protected $false = ['0', 'off', 'false', 'f', 'no', 'n'];
+    protected static $false = ['0', 'off', 'false', 'f', 'no', 'n'];
 
     /**
      * Invoked method
@@ -38,13 +38,13 @@ abstract class FilterAnnotation extends Annotation
      *
      * @return bool
      */
-    protected function isTrue($value)
+    protected static function isTrue($value)
     {
-        if (!$this->isBoolish($value)) {
+        if (!static::isBoolish($value)) {
             return false;
         }
 
-        return $value === true || in_array(strtolower(trim($value)), $this->true);
+        return $value === true || in_array(strtolower(trim($value)), static::$true);
     }
 
     /**
@@ -52,13 +52,13 @@ abstract class FilterAnnotation extends Annotation
      *
      * @return bool
      */
-    protected function isFalse($value)
+    protected static function isFalse($value)
     {
-        if (!$this->isBoolish($value)) {
+        if (!static::isBoolish($value)) {
             return false;
         }
 
-        return $value === false || in_array(strtolower(trim($value)), $this->false);
+        return $value === false || in_array(strtolower(trim($value)), static::$false);
     }
 
     /**
@@ -66,7 +66,7 @@ abstract class FilterAnnotation extends Annotation
      *
      * @return bool
      */
-    protected function isBoolish($value)
+    protected static function isBoolish($value)
     {
         if (is_string($value) || is_int($value) || is_bool($value)) {
             return true;
@@ -83,7 +83,7 @@ abstract class FilterAnnotation extends Annotation
      *
      * @return string
      */
-    protected function mbStrPad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT)
+    protected static function mbStrPad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT)
     {
         $diff = strlen($input) - mb_strlen($input);
 

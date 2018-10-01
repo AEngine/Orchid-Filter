@@ -52,7 +52,7 @@ class StrlenBetween extends FilterAnnotation
             return false;
         }
         if (mb_strlen($value) < $this->min) {
-            $value = $this->mbStrPad($value, $this->min, $this->padString, $this->padType);;
+            $value = static::mbStrPad($value, $this->min, $this->padString, $this->padType);;
         }
         if (mb_strlen($value) > $this->max) {
             $value = mb_substr($value, 0, $this->max);

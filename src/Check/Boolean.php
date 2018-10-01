@@ -19,6 +19,6 @@ class Boolean extends FilterAnnotation
 
     public function __invoke(&$data, $field)
     {
-        return $this->isTrue($data[$field]) || $this->isFalse($data[$field]);
+        return static::isTrue($data[$field]) || static::isFalse($data[$field]);
     }
 }

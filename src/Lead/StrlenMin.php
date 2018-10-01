@@ -49,7 +49,7 @@ class StrlenMin extends FilterAnnotation
             return false;
         }
         if (mb_strlen($value) < $this->min) {
-            $value = $this->mbStrPad($value, $this->min, $this->padString, $this->padType);;
+            $value = static::mbStrPad($value, $this->min, $this->padString, $this->padType);;
         }
 
         return true;

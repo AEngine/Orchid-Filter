@@ -48,7 +48,7 @@ class Strlen extends FilterAnnotation
         $strLen = mb_strlen($value);
 
         if ($strLen < $this->len) {
-            $value = $this->mbStrPad($value, $this->len, $this->padString, $this->padType);
+            $value = static::mbStrPad($value, $this->len, $this->padString, $this->padType);
         }
         if ($strLen > $this->len) {
             $value = mb_substr($value, 0, $this->len);

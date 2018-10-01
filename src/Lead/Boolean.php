@@ -38,13 +38,13 @@ class Boolean extends FilterAnnotation
     {
         $value = &$data[$field];
 
-        if ($this->isTrue($value)) {
+        if (static::isTrue($value)) {
             $value = $this->true;
 
             return true;
         }
 
-        if ($this->isFalse($value)) {
+        if (static::isFalse($value)) {
             $value = $this->false;
 
             return true;
