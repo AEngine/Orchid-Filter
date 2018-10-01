@@ -3,8 +3,15 @@
 The latest version of this file can be found at the master branch of the
 Orchid-Filter repository.
 
-## 1.1.4 (2018-06-11)
-- Remove dependency from aengine/orchid-core
+## 1.2.0 (2018-10-01)
+- AbstractFilter is deprecated, now use Filter
+- Add FilterAnnotation
+- Add FilterModel
+- Add Required annotation
+- Add dependency from aengine/orchid ^1.2.0 (annotation engine)
+
+### 1.1.4 (2018-06-11)
+- Remove dependency from aengine/orchid
 
 ### 1.1.3 (2017-12-02)
 - Update dependency
@@ -21,7 +28,6 @@ Orchid-Filter repository.
 - All Validate Rules named as `check{old_name}` (e.g. `checkBoolean`, `checkCreditCard`) 
 
 ### 1.0.0 (2016-11-30)
-
 - Code transferred from the Orchid project
 - Add composer support
 - Add many more validates and sanitizes
