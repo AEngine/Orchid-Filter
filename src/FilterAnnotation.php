@@ -2,7 +2,7 @@
 
 namespace AEngine\Orchid\Filter;
 
-use AEngine\Orchid\Annotation;
+use AEngine\Orchid\Annotations\Annotation;
 
 abstract class FilterAnnotation extends Annotation
 {

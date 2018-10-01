@@ -3,10 +3,10 @@
 namespace AEngine\Orchid\Filter\Lead;
 
 use AEngine\Orchid\Filter\FilterAnnotation;
-use AEngine\Orchid\Annotation\AnnotationTarget;
+use AEngine\Orchid\Annotations\Annotation\Target;
 
 /**
- * @AnnotationTarget('PROPERTY')
+ * @Target('PROPERTY')
  */
 class StrlenMin extends FilterAnnotation
 {

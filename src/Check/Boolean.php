@@ -3,10 +3,10 @@
 namespace AEngine\Orchid\Filter\Check;
 
 use AEngine\Orchid\Filter\FilterAnnotation;
-use AEngine\Orchid\Annotation\AnnotationTarget;
+use AEngine\Orchid\Annotations\Annotation\Target;
 
 /**
- * @AnnotationTarget('PROPERTY')
+ * @Target('PROPERTY')
  */
 class Boolean extends FilterAnnotation
 {

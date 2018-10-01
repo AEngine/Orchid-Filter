@@ -3,7 +3,11 @@
 namespace AEngine\Orchid\Filter\Check;
 
 use AEngine\Orchid\Filter\FilterAnnotation;
+use AEngine\Orchid\Annotations\Annotation\Target;
 
+/**
+ * @Target('PROPERTY')
+ */
 class Strlen extends FilterAnnotation
 {
     /**
