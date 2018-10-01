@@ -3,7 +3,10 @@
 The latest version of this file can be found at the master branch of the
 Orchid-Filter repository.
 
-## 1.2.0 (2018-10-01)
+## 1.2.1 (2018-10-01)
+- Add dependency orchid-annotation from a separate repo
+
+### 1.2.0 (2018-10-01)
 - AbstractFilter is deprecated, now use Filter
 - Add FilterAnnotation
 - Add FilterModel
