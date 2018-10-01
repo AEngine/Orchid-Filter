@@ -2,7 +2,7 @@
 
 namespace AEngine\Orchid\Filter;
 
-use AEngine\Orchid\Annotations\Annotated\AnnotatedReflectionClass;
+use AEngine\Orchid\Annotations\Annotated\ReflectionClass;
 use AEngine\Orchid\Model;
 
 class FilterModel extends Model
@@ -16,7 +16,7 @@ class FilterModel extends Model
         $filter = new Filter($data);
 
         // get magic class
-        $arc = new AnnotatedReflectionClass($this);
+        $arc = new ReflectionClass($this);
 
         foreach ($arc->getProperties() as $property) {
             $annotations = $property->getAnnotation($namespace, false);
