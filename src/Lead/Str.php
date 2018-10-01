@@ -23,6 +23,6 @@ class Str extends FilterAnnotation
 
         $value = strval($value);
 
-        return false;
+        return true;
     }
 }
