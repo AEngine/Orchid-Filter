@@ -2,7 +2,7 @@
 
 namespace AEngine\Orchid\Filter;
 
-use AEngine\Orchid\Annotated\AnnotatedReflectionClass;
+use AEngine\Orchid\Annotations\Annotated\AnnotatedReflectionClass;
 use AEngine\Orchid\Model;
 
 class FilterModel extends Model
