@@ -17,7 +17,7 @@ class Str extends FilterAnnotation
     {
         $value = &$data[$field];
 
-        if (!is_scalar($value) || !method_exists($value, '__toString')) {
+        if (!is_scalar($value) && !method_exists($value, '__toString')) {
             return false;
         }
 
