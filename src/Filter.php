@@ -59,7 +59,7 @@ class Filter
     /**
      * Adds to selected field rule
      *
-     * @param Closure $rule
+     * @param FilterAnnotation|Closure $rule
      * @param string  $message when error return this text
      *
      * @return self
@@ -80,7 +80,7 @@ class Filter
     /**
      * Adds global rule
      *
-     * @param Closure $rule
+     * @param FilterAnnotation|Closure $rule
      * @param string  $message
      *
      * @return $this

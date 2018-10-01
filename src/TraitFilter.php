@@ -2,8 +2,6 @@
 
 namespace AEngine\Orchid\Filter;
 
-use Closure;
-
 trait TraitFilter
 {
     // Russian date format (ГОСТ Р 6.30-2003 (п. 3.11))
@@ -37,66 +35,34 @@ trait TraitFilter
      * @param int $min minimum valid value
      * @param int $max maximum valid value
      *
-     * @return Closure
+     * @return Lead\Between
      */
     public function leadBetween($min, $max)
     {
-        return function (&$data, $field) use ($min, $max) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-            if ($value < $min) {
-                $value = $min;
-            }
-            if ($value > $max) {
-                $value = $max;
-            }
-
-            return true;
-        };
+        return new Lead\Between($min, $max);
     }
 
     /**
      * Sanitize the value to a boolean, or a pseudo-boolean
      *
-     * @param mixed $true Use this value for `true`
+     * @param mixed $true  Use this value for `true`
      * @param mixed $false Use this value for `false`
      *
-     * @return Closure
+     * @return Lead\Boolean
      */
     public function leadBoolean($true = true, $false = false)
     {
-        return function (&$data, $field) use ($true, $false) {
-            $value = &$data[$field];
-            if ($this->isTrue($value)) {
-                $value = $true;
-
-                return true;
-            }
-
-            if ($this->isFalse($value)) {
-                $value = $false;
-
-                return true;
-            }
-
-            $value = $value ? $true : $false;
-
-            return true;
-        };
+        return new Lead\Boolean($true, $false);
     }
 
     /**
      * Sanitizes a value using a callable
      *
-     * @return Closure
+     * @return Lead\Callback
      */
     public function leadCallback()
     {
-        return function (&$data, $field) {
-            return $data[$field]($data, $field);
-        };
+        return new Lead\Callback();
     }
 
     /**
@@ -104,26 +70,11 @@ trait TraitFilter
      *
      * @param string $format date format to use
      *
-     * @return Closure
+     * @return Lead\DateTime
      */
     public function leadDateTime($format = 'Y-m-d H:i:s')
     {
-        return function (&$data, $field) use ($format) {
-            $value = &$data[$field];
-            if (is_numeric($value)) {
-                $value = date($format, $value);
-
-                return true;
-            }
-
-            if (is_string($value) && ($time = strtotime($value)) !== false) {
-                $value = date($format, $time);
-
-                return true;
-            }
-
-            return false;
-        };
+        return new Lead\DateTime($format);
     }
 
     /**
@@ -131,80 +82,41 @@ trait TraitFilter
      *
      * @param int $precision rounding precision
      *
-     * @return Closure
+     * @return Lead\Double
      */
     public function leadDouble($precision = 0)
     {
-        return function (&$data, $field) use ($precision) {
-            $value = &$data[$field];
-            if (is_numeric($value) || is_string($value)) {
-                $value = round((double)$value, $precision);
-
-                return true;
-            }
-
-            return false;
-        };
+        return new Lead\Double($precision);
     }
 
     /**
      * Sanitizes escapes a string
      *
-     * @return Closure
+     * @return Lead\Escape
      */
     public function leadEscape()
     {
-        return function (&$data, $field) {
-            $value = &$data[$field];
-            if (is_string($value)) {
-                $value = str_replace(
-                    ['\'', '"', '>', '<', '`', '\\'],
-                    ['&#039;', '&#34;', '&#62;', '&#60;', '&#96;', '&#92;'],
-                    $value
-                );
-            }
-
-            return true;
-        };
+        return new Lead\Escape();
     }
 
     /**
      * Forces the value to an integer
      *
-     * @return Closure
+     * @return Lead\Integer
      */
     public function leadInteger()
     {
-        return function (&$data, $field) {
-            $value = &$data[$field];
-            if (is_numeric($value) || is_string($value)) {
-                $value = (float)$value;
-                $value = (int)$value;
-
-                return true;
-            }
-
-            return false;
-        };
+        return new Lead\Integer();
     }
 
     /**
      * Sanitizes a string to lowercase
      *
-     * @return Closure
+     * @return Lead\Lowercase
      */
     public function leadLowercase()
     {
-        return function (&$data, $field) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            $value = strtolower($value);
-
-            return true;
-        };
+        return new Lead\Lowercase();
     }
 
     /**
@@ -212,21 +124,11 @@ trait TraitFilter
      *
      * @param int $max maximum valid value
      *
-     * @return Closure
+     * @return Lead\Max
      */
     public function leadMax($max)
     {
-        return function (&$data, $field) use ($max) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-            if ($value > $max) {
-                $value = $max;
-            }
-
-            return true;
-        };
+        return new Lead\Max($max);
     }
 
     /**
@@ -234,21 +136,11 @@ trait TraitFilter
      *
      * @param int $min minimum valid value
      *
-     * @return Closure
+     * @return Lead\Min
      */
     public function leadMin($min)
     {
-        return function (&$data, $field) use ($min) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-            if ($value < $min) {
-                $value = $min;
-            }
-
-            return true;
-        };
+        return new Lead\Min($min);
     }
 
     /**
@@ -256,128 +148,73 @@ trait TraitFilter
      *
      * @param string $format date format to use
      *
-     * @return Closure
+     * @return Lead\Now
      */
     public function leadNow($format = 'Y-m-d H:i:s')
     {
-        return function (&$data, $field) use ($format) {
-            $data[$field] = date($format);
-
-            return true;
-        };
+        return new Lead\Now($format);
     }
 
     /**
      * Applies `preg_replace()` to the value
      *
-     * @param string $expr regular expression pattern to apply
+     * @param string $expr    regular expression pattern to apply
      * @param string $replace Replace the found pattern with this string
      *
-     * @return Closure
+     * @return Lead\Regex
      */
     public function leadRegex($expr, $replace)
     {
-        return function (&$data, $field) use ($expr, $replace) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            $value = preg_replace($expr, $replace, $value);
-
-            return true;
-        };
+        return new Lead\Regex($expr, $replace);
     }
 
     /**
      * Removes the field from the data with unset()
      *
-     * @return Closure
+     * @return Lead\Remove
      */
     public function leadRemove()
     {
-        return function (&$data, $field) {
-            unset($data[$field]);
-
-            return true;
-        };
+        return new Lead\Remove();
     }
 
     /**
      * Forces the value to a string
      *
-     * @return Closure
+     * @return Lead\Str
      */
     public function leadStr()
     {
-        return function (&$data, $field) {
-            $value = &$data[$field];
-            if (!is_scalar($value) || !method_exists($value, '__toString')) {
-                return false;
-            }
-
-            $value = strval($value);
-
-            return false;
-        };
+        return new Lead\Str();
     }
 
     /**
      * Sanitizes a string to an exact length by padding or chopping it
      *
-     * @param int    $len minimum string length
+     * @param int    $len       minimum string length
      * @param string $padString Pad using this string
-     * @param int    $padType A `STR_PAD_*` constant
+     * @param int    $padType   A `STR_PAD_*` constant
      *
-     * @return Closure
+     * @return Lead\Strlen
      */
     public function leadStrlen($len, $padString = ' ', $padType = STR_PAD_RIGHT)
     {
-        return function (&$data, $field) use ($len, $padString, $padType) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            $strlen = mb_strlen($value);
-
-            if ($strlen < $len) {
-                $value = $this->mbStrPad($value, $len, $padString, $padType);
-            }
-            if ($strlen > $len) {
-                $value = mb_substr($value, 0, $len);
-            }
-
-            return true;
-        };
+        return new Lead\Strlen($len, $padString, $padType);
     }
 
     /**
      * Sanitizes a string to a length range by padding or chopping it
      *
-     * @param int    $min minimum length
-     * @param int    $max maximum length
+     * @param int    $min       minimum length
+     * @param int    $max       maximum length
      * @param string $padString Pad using this string
-     * @param int    $padType A `STR_PAD_*` constant
+     * @param int    $padType   A `STR_PAD_*` constant
      *
-     * @return Closure
+     * @return Lead\StrlenBetween
      */
     public function leadStrlenBetween($min, $max, $padString = ' ', $padType = STR_PAD_RIGHT)
     {
-        return function (&$data, $field) use ($min, $max, $padString, $padType) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-            if (mb_strlen($value) < $min) {
-                $value = $this->mbStrPad($value, $min, $padString, $padType);;
-            }
-            if (mb_strlen($value) > $max) {
-                $value = mb_substr($value, 0, $max);
-            }
-
-            return true;
-        };
+        return new Lead\StrlenBetween($min, $max, $padString, $padType);
     }
 
     /**
@@ -385,68 +222,38 @@ trait TraitFilter
      *
      * @param int $max maximum length.
      *
-     * @return Closure
+     * @return Lead\StrlenMax
      */
     public function leadStrlenMax($max)
     {
-        return function (&$data, $field) use ($max) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-            if (mb_strlen($value) > $max) {
-                $value = mb_substr($value, 0, $max);
-            }
-
-            return true;
-        };
+        return new Lead\StrlenMax($max);
     }
 
     /**
      * Sanitizes a string to a minimum length by padding it
      *
-     * @param int    $min minimum length
+     * @param int    $min       minimum length
      * @param string $padString Pad using this string
-     * @param int    $padType A `STR_PAD_*` constant
+     * @param int    $padType   A `STR_PAD_*` constant
      *
-     * @return Closure
+     * @return Lead\StrlenMin
      */
     public function leadStrlenMin($min, $padString = ' ', $padType = STR_PAD_RIGHT)
     {
-        return function (&$data, $field) use ($min, $padString, $padType) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-            if (mb_strlen($value) < $min) {
-                $value = $this->mbStrPad($value, $min, $padString, $padType);;
-            }
-
-            return true;
-        };
+        return new Lead\StrlenMin($min, $padString, $padType);
     }
 
     /**
      * Forces the value to a string, optionally applying `str_replace()`
      *
-     * @param string|array $find Find this/these in the value.
+     * @param string|array $find    Find this/these in the value.
      * @param string|array $replace Replace with this/these in the value.
      *
-     * @return Closure
+     * @return Lead\StrReplace
      */
     public function leadStrReplace($find = null, $replace = null)
     {
-        return function (&$data, $field) use ($find, $replace) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-            if ($find || $replace) {
-                $value = str_replace($find, $replace, $value);
-            }
-
-            return true;
-        };
+        return new Lead\StrReplace($find, $replace);
     }
 
     /**
@@ -454,39 +261,21 @@ trait TraitFilter
      *
      * @param string $chars characters to trim
      *
-     * @return Closure
+     * @return Lead\Trim
      */
     public function leadTrim($chars = " \t\n\r\0\x0B")
     {
-        return function (&$data, $field) use ($chars) {
-            $value = &$data[$field];
-            if (is_scalar($value) || $value === null) {
-                $value = trim($value, $chars);
-
-                return true;
-            }
-
-            return false;
-        };
+        return new Lead\Trim($chars);
     }
 
     /**
      * Sanitizes a string to uppercase
      *
-     * @return Closure
+     * @return Lead\Uppercase
      */
     public function leadUppercase()
     {
-        return function (&$data, $field) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            $value = strtoupper($value);
-
-            return true;
-        };
+        return new Lead\Uppercase();
     }
 
     /**
@@ -494,34 +283,21 @@ trait TraitFilter
      *
      * @param mixed $otherValue value to set
      *
-     * @return Closure
+     * @return Lead\Value
      */
     public function leadValue($otherValue)
     {
-        return function (&$data, $field) use ($otherValue) {
-            $data[$field] = $otherValue;
-
-            return true;
-        };
+        return new Lead\Value($otherValue);
     }
 
     /**
      * Strips non-word characters within the value (letters, numbers, and underscores)
      *
-     * @return Closure
+     * @return Lead\Word
      */
     public function leadWord()
     {
-        return function (&$data, $field) {
-            $value = &$data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            $value = preg_replace('/[^\p{L}\p{Nd}_]/u', '', $value);
-
-            return true;
-        };
+        return new Lead\Word();
     }
 
     /**
@@ -530,94 +306,51 @@ trait TraitFilter
      * @param int $min minimum valid value
      * @param int $max maximum valid value
      *
-     * @return Closure
+     * @return Check\Between
      */
     public function checkBetween($min, $max)
     {
-        return function ($data, $field) use ($min, $max) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            return ($value >= $min && $value <= $max);
-        };
+        return new Check\Between($min, $max);
     }
 
     /**
      * Validates that the value is a boolean representation
      *
-     * @return Closure
+     * @return Check\Boolean
      */
     public function checkBoolean()
     {
-        return function ($data, $field) {
-            return $this->isTrue($data[$field]) || $this->isFalse($data[$field]);
-        };
+        return new Check\Boolean();
     }
 
     /**
      * Validates the value as a credit card number
      *
-     * @return Closure
+     * @return Check\CreditCard
      */
     public function checkCreditCard()
     {
-        return function ($data, $field) {
-            $value = $data[$field];
-            // get the value; remove spaces, dashes, and dots
-            $value = str_replace([' ', '-', '.'], '', (string)$value);
-
-            // is it composed only of digits?
-            if (!ctype_digit($value)) {
-                return false;
-            }
-
-            // luhn mod-10 algorithm: https://gist.github.com/1287893
-            $sumTable = [
-                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                [0, 2, 4, 6, 8, 1, 3, 5, 7, 9],
-            ];
-
-            $sum  = 0;
-            $flip = 0;
-
-            for ($i = strlen($value) - 1; $i >= 0; $i--) {
-                $sum += $sumTable[$flip++ & 0x1][$value[$i]];
-            }
-
-            return $sum % 10 === 0;
-        };
+        return new Check\CreditCard();
     }
 
     /**
      * Validates that the value represents a float
      *
-     * @return Closure
+     * @return Check\Double
      */
     public function checkDouble()
     {
-        return function ($data, $field) {
-            $value = $data[$field];
-            if (is_float($value)) {
-                return true;
-            }
-
-            // otherwise, must be numeric, and must be same as when cast to float
-            return is_numeric($value) && $value == (float)$value;
-        };
+        return new Check\Double();
     }
 
     /**
      * Validates that the value is an email address
      *
-     * @return Closure
+     * @return Check\Email
      */
     public function checkEmail()
     {
-        return function ($data, $field) {
-            return !!filter_var($data[$field], FILTER_VALIDATE_EMAIL);
-        };
+        return new Check\Email();
     }
 
     /**
@@ -625,18 +358,11 @@ trait TraitFilter
      *
      * @param string $other_field Check against the value of this subject field
      *
-     * @return Closure
+     * @return Check\EqualToField
      */
     public function checkEqualToField($other_field)
     {
-        return function ($data, $field) use ($other_field) {
-            // the other field needs to exist and *not* be null
-            if (!isset($data[$other_field])) {
-                return false;
-            }
-
-            return $data[$field] == $data[$other_field];
-        };
+        return new Check\EqualToField($other_field);
     }
 
     /**
@@ -644,13 +370,11 @@ trait TraitFilter
      *
      * @param string $other_value other value
      *
-     * @return Closure
+     * @return Check\EqualToValue
      */
     public function checkEqualToValue($other_value)
     {
-        return function ($data, $field) use ($other_value) {
-            return $data[$field] == $other_value;
-        };
+        return new Check\EqualToValue($other_value);
     }
 
     /**
@@ -659,39 +383,21 @@ trait TraitFilter
      * @param array $array array of key-value pairs; the value must match
      *                     one of the keys in this array
      *
-     * @return Closure
+     * @return Check\InKeys
      */
     public function checkInKeys(array $array)
     {
-        return function ($data, $field) use ($array) {
-            $value = $data[$field];
-            if (!is_string($value) && !is_int($value)) {
-                // array_key_exists errors on non-string non-int keys.
-                return false;
-            }
-
-            // using array_keys() converts string numeric keys to integers, which
-            // is *not* the behavior we want.
-            return array_key_exists($value, $array);
-        };
+        return new Check\InKeys($array);
     }
 
     /**
      * Validates that the value represents an integer
      *
-     * @return Closure
+     * @return Check\Integer
      */
     public function checkInteger()
     {
-        return function ($data, $field) {
-            $value = $data[$field];
-            if (is_int($value)) {
-                return true;
-            }
-
-            // otherwise, must be numeric, and must be same as when cast to int
-            return is_numeric($value) && $value == (int)$value;
-        };
+        return new Check\Integer();
     }
 
     /**
@@ -699,13 +405,11 @@ trait TraitFilter
      *
      * @param array $array array of allowed values
      *
-     * @return Closure
+     * @return Check\InValues
      */
     public function checkInValues(array $array)
     {
-        return function ($data, $field) use ($array) {
-            return in_array($data[$field], $array, true);
-        };
+        return new Check\InValues($array);
     }
 
     /**
@@ -714,17 +418,11 @@ trait TraitFilter
      * @param mixed $flags `FILTER_VALIDATE_IP` flags to pass to filter_var();
      *                     cf. <http://php.net/manual/en/filter.filters.flags.php>.
      *
-     * @return Closure
+     * @return Check\Ip
      */
     public function checkIp($flags = null)
     {
-        return function ($data, $field) use ($flags) {
-            if ($flags === null) {
-                $flags = FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6;
-            }
-
-            return filter_var($data[$field], FILTER_VALIDATE_IP, $flags) !== false;
-        };
+        return new Check\Ip($flags);
     }
 
     /**
@@ -732,18 +430,11 @@ trait TraitFilter
      *
      * @param int $max maximum valid value
      *
-     * @return Closure
+     * @return Check\Max
      */
     public function checkMax($max)
     {
-        return function ($data, $field) use ($max) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            return $value <= $max;
-        };
+        return new Check\Max($max);
     }
 
     /**
@@ -751,41 +442,21 @@ trait TraitFilter
      *
      * @param int $min minimum valid value
      *
-     * @return Closure
+     * @return Check\Min
      */
     public function checkMin($min)
     {
-        return function ($data, $field) use ($min) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            return $value >= $min;
-        };
+        return new Check\Min($min);
     }
 
     /**
      * Validates that the value is phone
      *
-     * @return Closure
+     * @return Check\Phone
      */
     public function checkPhone()
     {
-        $pattern = '\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})? ?(\w{1,10}\s?\d{1,6})?';
-
-        return function ($data, $field) use ($pattern) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            if (preg_match($pattern, $value)) {
-                return true;
-            }
-
-            return false;
-        };
+        return new Check\Phone();
     }
 
     /**
@@ -793,30 +464,21 @@ trait TraitFilter
      *
      * @param string $expr regular expression pattern to apply
      *
-     * @return Closure
+     * @return Check\Regex
      */
     public function checkRegex($expr)
     {
-        return function ($data, $field) use ($expr) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            return (bool)preg_match($expr, $value);
-        };
+        return new Check\Regex($expr);
     }
 
     /**
      * Validates that the value represents a string
      *
-     * @return Closure
+     * @return Check\Str
      */
     public function checkStr()
     {
-        return function ($data, $field) {
-            return is_string($data[$field]);
-        };
+        return new Check\Str();
     }
 
     /**
@@ -824,18 +486,11 @@ trait TraitFilter
      *
      * @param string $other_field Check against the value of this subject field
      *
-     * @return Closure
+     * @return Check\StrictEqualToField
      */
     public function checkStrictEqualToField($other_field)
     {
-        return function ($data, $field) use ($other_field) {
-            // the other field needs to exist and *not* be null
-            if (!isset($data[$other_field])) {
-                return false;
-            }
-
-            return $data[$field] === $data[$other_field];
-        };
+        return new Check\StrictEqualToField($other_field);
     }
 
     /**
@@ -843,13 +498,11 @@ trait TraitFilter
      *
      * @param string $other_value other value
      *
-     * @return Closure
+     * @return Check\StrictEqualToValue
      */
     public function checkStrictEqualToValue($other_value)
     {
-        return function ($data, $field) use ($other_value) {
-            return $data[$field] === $other_value;
-        };
+        return new Check\StrictEqualToValue($other_value);
     }
 
     /**
@@ -857,18 +510,11 @@ trait TraitFilter
      *
      * @param int $len valid length
      *
-     * @return Closure
+     * @return Check\Strlen
      */
     public function checkStrlen($len)
     {
-        return function ($data, $field) use ($len) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            return mb_strlen($value) == $len;
-        };
+        return new Check\Strlen($len);
     }
 
     /**
@@ -877,19 +523,11 @@ trait TraitFilter
      * @param int $min minimum valid length.
      * @param int $max maximum valid length.
      *
-     * @return Closure
+     * @return Check\StrlenBetween
      */
     public function checkStrlenBetween($min, $max)
     {
-        return function ($data, $field) use ($min, $max) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-            $len = mb_strlen($value);
-
-            return ($len >= $min && $len <= $max);
-        };
+        return new Check\StrlenBetween($min, $max);
     }
 
     /**
@@ -897,18 +535,11 @@ trait TraitFilter
      *
      * @param int $max value must have no more than this many
      *
-     * @return Closure
+     * @return Check\StrlenMax
      */
     public function checkStrlenMax($max)
     {
-        return function ($data, $field) use ($max) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            return mb_strlen($value) <= $max;
-        };
+        return new Check\StrlenMax($max);
     }
 
     /**
@@ -916,18 +547,11 @@ trait TraitFilter
      *
      * @param int $min value must have at least this many characters
      *
-     * @return Closure
+     * @return Check\StrlenMin
      */
     public function checkStrlenMin($min)
     {
-        return function ($data, $field) use ($min) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            return mb_strlen($value) >= $min;
-        };
+        return new Check\StrlenMin($min);
     }
 
     /**
@@ -935,189 +559,51 @@ trait TraitFilter
      *
      * @param string $chars characters to strip
      *
-     * @return Closure
+     * @return Check\Trim
      */
     public function checkTrim($chars = " \t\n\r\0\x0B")
     {
-        return function ($data, $field) use ($chars) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            return trim($value, $chars) == $value;
-        };
+        return new Check\Trim($chars);
     }
 
     /**
      * Validates that the value is an array of file-upload information, and
      * if a file is referred to, that is actually an uploaded file
      *
-     * @return Closure
+     * @return Check\Upload
      */
     public function checkUpload()
     {
-        return function (&$data, $field) {
-            $default = [
-                'error'    => '',
-                'name'     => '',
-                'size'     => '',
-                'tmp_name' => '',
-                'type'     => '',
-            ];
-            $value   = $data[$field] = array_merge($default, (array)$data[$field] ?? []);
-
-            // remove unexpected keys
-            $expect = array_keys($default);
-            foreach ($value as $key => $val) {
-                if (!in_array($key, $expect)) {
-                    unset($value[$key]);
-                }
-            }
-
-            // was the upload explicitly ok?
-            if ($value['error'] != UPLOAD_ERR_OK) {
-                return false;
-            }
-
-            // is it actually an uploaded file?
-            if (is_uploaded_file($value['tmp_name'])) {
-                return true;
-            }
-
-            return false;
-        };
+        return new Check\Upload();
     }
 
     /**
      * Validates the value as a URL
      *
-     * @return Closure
+     * @return Check\Url
      */
     public function checkUrl()
     {
-        return function ($data, $field) {
-            $value = $data[$field];
-            if (!is_scalar($value)) {
-                return false;
-            }
-
-            // first, make sure there are no invalid chars, list from ext/filter
-            $other = "$-_.+"     // safe
-                . "!*'(),"       // extra
-                . "{}|\\^~[]`"   // national
-                . "<>#%\""       // punctuation
-                . ";/?:@&=";     // reserved
-
-            $valid = 'a-zA-Z0-9' . preg_quote($other, '/');
-            $clean = preg_replace("/[^$valid]/", '', $value);
-            if ($value != $clean) {
-                return false;
-            }
-
-            $result = @parse_url($value);
-            if (empty($result['scheme']) || trim($result['scheme']) == '' ||
-                empty($result['host']) || trim($result['host']) == ''
-            ) {
-                return false;
-            }
-
-            return true;
-        };
+        return new Check\Url();
     }
 
     /**
      * Validates that the value is Empty
      *
-     * @return Closure
+     * @return Check\ValueEmpty
      */
     public function checkValueEmpty()
     {
-        return function ($data, $field) {
-            return empty($data[$field]);
-        };
+        return new Check\ValueEmpty();
     }
 
     /**
      * Validates that the value is *not* Empty
      *
-     * @return Closure
+     * @return Check\ValueNotEmpty
      */
     public function checkValueNotEmpty()
     {
-        return function ($data, $field) {
-            return !empty($data[$field]);
-        };
-    }
-
-    /**
-     * Pseudo-true representations.
-     *
-     * @var array
-     */
-    protected $true = ['1', 'on', 'true', 't', 'yes', 'y'];
-
-    /**
-     * Pseudo-false representations; `null` and empty-string are *not* included.
-     *
-     * @var array
-     */
-    protected $false = ['0', 'off', 'false', 'f', 'no', 'n'];
-
-    /**
-     * @param $value
-     *
-     * @return bool
-     */
-    protected function isTrue($value)
-    {
-        if (!$this->isBoolish($value)) {
-            return false;
-        }
-
-        return $value === true || in_array(strtolower(trim($value)), $this->true);
-    }
-
-    /**
-     * @param $value
-     *
-     * @return bool
-     */
-    protected function isFalse($value)
-    {
-        if (!$this->isBoolish($value)) {
-            return false;
-        }
-
-        return $value === false || in_array(strtolower(trim($value)), $this->false);
-    }
-
-    /**
-     * @param $value
-     *
-     * @return bool
-     */
-    protected function isBoolish($value)
-    {
-        if (is_string($value) || is_int($value) || is_bool($value)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param string $input
-     * @param int    $pad_length
-     * @param string $pad_string
-     * @param int    $pad_type
-     *
-     * @return string
-     */
-    protected function mbStrPad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT)
-    {
-        $diff = strlen($input) - mb_strlen($input);
-
-        return str_pad($input, $pad_length + $diff, $pad_string, $pad_type);
+        return new Check\ValueNotEmpty();
     }
 }
