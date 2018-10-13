@@ -10,12 +10,6 @@ Run the following command in the root directory of your web project:
   
 > `composer require aengine/orchid-filter`
 
-#### Contributing
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-#### License
-The Orchid Framework is licensed under the MIT license. See [License File](LICENSE.md) for more information.
-
 #### Usage
 Extends class `Filter`
 ```php
@@ -142,3 +136,9 @@ if ($result === true) {
 }
 
 ```
+
+#### Contributing
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+#### License
+The Orchid Filter is licensed under the MIT license. See [License File](LICENSE.md) for more information.

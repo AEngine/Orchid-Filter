@@ -1,7 +1,6 @@
-# Orchid-Filter changelog
+# Changelog
 
-The latest version of this file can be found at the master branch of the
-Orchid-Filter repository.
+The latest version of this file can be found at the master branch of the this repository.
 
 ## 1.2.1 (2018-10-01)
 - Add dependency orchid-annotation from a separate repo
