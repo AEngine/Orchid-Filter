@@ -2,13 +2,13 @@
 
 namespace AEngine\Orchid\Filter\Lead;
 
-use AEngine\Orchid\Filter\FilterAnnotation;
+use AEngine\Orchid\Filter\FilterRule;
 use AEngine\Orchid\Annotations\Annotation\Target;
 
 /**
  * @Target('PROPERTY')
  */
-class Between extends FilterAnnotation
+class Between extends FilterRule
 {
     /**
      * @var integer

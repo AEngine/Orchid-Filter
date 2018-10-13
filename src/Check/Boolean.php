@@ -2,13 +2,13 @@
 
 namespace AEngine\Orchid\Filter\Check;
 
-use AEngine\Orchid\Filter\FilterAnnotation;
+use AEngine\Orchid\Filter\FilterRule;
 use AEngine\Orchid\Annotations\Annotation\Target;
 
 /**
  * @Target('PROPERTY')
  */
-class Boolean extends FilterAnnotation
+class Boolean extends FilterRule
 {
     /**
      * Validates that the value is a boolean representation

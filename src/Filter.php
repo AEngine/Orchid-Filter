@@ -59,8 +59,8 @@ class Filter
     /**
      * Adds to selected field rule
      *
-     * @param FilterAnnotation|Closure $rule
-     * @param string  $message when error return this text
+     * @param FilterRule|Closure $rule
+     * @param string             $message when error return this text
      *
      * @return self
      * @throws RuntimeException
@@ -80,8 +80,8 @@ class Filter
     /**
      * Adds global rule
      *
-     * @param FilterAnnotation|Closure $rule
-     * @param string  $message
+     * @param FilterRule|Closure $rule
+     * @param string             $message
      *
      * @return $this
      */

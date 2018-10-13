@@ -2,13 +2,13 @@
 
 namespace AEngine\Orchid\Filter\Check;
 
-use AEngine\Orchid\Filter\FilterAnnotation;
+use AEngine\Orchid\Filter\FilterRule;
 use AEngine\Orchid\Annotations\Annotation\Target;
 
 /**
  * @Target('PROPERTY')
  */
-class Trim extends FilterAnnotation
+class Trim extends FilterRule
 {
     /**
      * @var string

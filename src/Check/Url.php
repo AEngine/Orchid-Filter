@@ -2,13 +2,13 @@
 
 namespace AEngine\Orchid\Filter\Check;
 
-use AEngine\Orchid\Filter\FilterAnnotation;
+use AEngine\Orchid\Filter\FilterRule;
 use AEngine\Orchid\Annotations\Annotation\Target;
 
 /**
  * @Target('PROPERTY')
  */
-class Url extends FilterAnnotation
+class Url extends FilterRule
 {
     /**
      * Validates the value as a URL

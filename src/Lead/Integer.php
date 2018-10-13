@@ -2,13 +2,13 @@
 
 namespace AEngine\Orchid\Filter\Lead;
 
-use AEngine\Orchid\Filter\FilterAnnotation;
+use AEngine\Orchid\Filter\FilterRule;
 use AEngine\Orchid\Annotations\Annotation\Target;
 
 /**
  * @Target('PROPERTY')
  */
-class Integer extends FilterAnnotation
+class Integer extends FilterRule
 {
     /**
      * Forces the value to an integer

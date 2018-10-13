@@ -7,7 +7,7 @@ use AEngine\Orchid\Annotations\Annotation\Target;
 /**
  * @Target('PROPERTY')
  */
-class Required extends FilterAnnotation
+class Required extends FilterRule
 {
     public function __invoke(&$data, $field)
     {
