@@ -20,7 +20,7 @@ class Double extends FilterRule
      *
      * @param int $precision rounding precision
      */
-    public function __construct($precision)
+    public function __construct($precision = 2)
     {
         $this->replace([
             'precision' => $precision,
