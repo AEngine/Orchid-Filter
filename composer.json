@@ -20,8 +20,10 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
-        "aengine/orchid-annotation": "^1.0.0"
+        "php": ">=7.0"
+    },
+    "suggest": {
+        "aengine/annotation": "1.0.0-p"
     },
     "autoload": {
         "psr-4": {
