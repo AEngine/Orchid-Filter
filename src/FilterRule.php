@@ -2,8 +2,6 @@
 
 namespace AEngine\Orchid\Filter;
 
-use AEngine\Orchid\Annotations\Annotation;
-
 abstract class FilterRule extends Annotation
 {
     // error message

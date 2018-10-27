@@ -2,8 +2,8 @@
 
 namespace AEngine\Orchid\Filter;
 
-use AEngine\Orchid\Annotations\Annotated\ReflectionClass;
 use AEngine\Orchid\Model;
+use RuntimeException;
 
 class FilterModel extends Model
 {
@@ -16,7 +16,19 @@ class FilterModel extends Model
         $filter = new Filter($data);
 
         // get magic class
-        $arc = new ReflectionClass($this);
+        switch (true) {
+            case class_exists('AEngine\Orchid\Annotation'):
+                $arc = new \AEngine\Orchid\AnnotatedReflectionClass($this);
+                break;
+
+            case class_exists('AEngine\Annotation'):
+                $arc = new \AEngine\AnnotatedReflectionClass($this);
+                break;
+
+            default:
+                throw new RuntimeException('Filtering by Annotation is disabled');
+                break;
+        }
 
         foreach ($arc->getProperties() as $property) {
             $annotations = $property->getAnnotation($namespace, false);

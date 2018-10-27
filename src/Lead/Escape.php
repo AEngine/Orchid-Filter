@@ -3,7 +3,7 @@
 namespace AEngine\Orchid\Filter\Lead;
 
 use AEngine\Orchid\Filter\FilterRule;
-use AEngine\Orchid\Annotations\Annotation\Target;
+use AEngine\Orchid\Annotation\Target;
 
 /**
  * @Target('PROPERTY')

@@ -2,7 +2,7 @@
 
 namespace AEngine\Orchid\Filter;
 
-use AEngine\Orchid\Annotations\Annotation\Target;
+use AEngine\Orchid\Annotation\Target;
 
 /**
  * @Target('PROPERTY')
