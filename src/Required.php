@@ -11,6 +11,6 @@ class Required extends FilterRule
 {
     public function __invoke(&$data, $field)
     {
-        return !!$data[$field];
+        return true;
     }
 }
