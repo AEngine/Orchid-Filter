@@ -13,12 +13,12 @@ class Boolean extends FilterRule
     /**
      * @var boolean true
      */
-    public $true;
+    public $valueTrue;
 
     /**
      * @var boolean false
      */
-    public $false;
+    public $valueFalse;
 
     /**
      * Sanitize the value to a boolean, or a pseudo-boolean
@@ -29,8 +29,8 @@ class Boolean extends FilterRule
     public function __construct($true, $false)
     {
         $this->replace([
-            'true' => $true,
-            'false' => $false,
+            'valueTrue' => $true,
+            'valueFalse' => $false,
         ]);
     }
 
@@ -39,18 +39,18 @@ class Boolean extends FilterRule
         $value = &$data[$field];
 
         if (static::isTrue($value)) {
-            $value = $this->true;
+            $value = $this->valueTrue;
 
             return true;
         }
 
         if (static::isFalse($value)) {
-            $value = $this->false;
+            $value = $this->valueFalse;
 
             return true;
         }
 
-        $value = $value ? $this->true : $this->false;
+        $value = $value ? $this->valueTrue : $this->valueFalse;
 
         return true;
     }
